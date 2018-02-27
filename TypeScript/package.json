@@ -1,0 +1,21 @@
+{
+  "name": "typescript",
+  "version": "0.0.1",
+  "description": "test typescript features",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build && npm run node",
+    "build": "tsc index.ts",
+    "node": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "test typescript features"
+  },
+  "keywords": [
+    "typescirpt",
+    "blog"
+  ],
+  "author": "qiqingjin",
+  "license": "MIT"
+}
