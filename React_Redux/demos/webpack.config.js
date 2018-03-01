@@ -14,8 +14,14 @@ module.exports = {
   // output
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(root, 'dist')
+    path: path.resolve(root, 'dist'),
+    devtoolModuleFilenameTemplate: './[resource-path]'
   },
+  resolve: {
+    modules: [path.resolve(root, "src"), "node_modules"],
+    extensions: [".js", ".jsx"]
+  },
+  devtool: 'source-map',
   // loaders
   module: {
     loaders: [
