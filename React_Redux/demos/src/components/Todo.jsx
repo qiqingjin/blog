@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (content) => {
+export default ({content}) => {
   return (
     <li>{content}</li>
   );

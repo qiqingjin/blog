@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
     return (todo.id % 2 === 0);
   });
   return ({
-    todoList: filteredTodos
+    todos: filteredTodos
   });
 };
 

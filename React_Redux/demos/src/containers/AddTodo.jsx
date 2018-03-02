@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addTodoCreator } from 'actions';
+import { filterTodoCreator } from 'actions';
 
-let AddTodo = ({ dispatch }) => {
+let AddTodo = ({dispatch}) => {
   let input;
   return (
     <div>
@@ -10,8 +11,8 @@ let AddTodo = ({ dispatch }) => {
         input = instance;
       }} type="text"/>
       <button onClick = {e => {
-        input && dispatch( addTodoCreator(input.value) );
-        input && ( input.value = '' );
+        input && dispatch(addTodoCreator(input.value));
+        input && (input.value = '');
       }} >add</button>
     </div>
   )

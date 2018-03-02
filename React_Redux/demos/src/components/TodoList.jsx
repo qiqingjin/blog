@@ -1,12 +1,12 @@
 import React from 'react';
 import Todo from 'components/Todo';
 
-export default ({dispatch, todoList}) => {
+export default ({todos}) => {
   return (
     <ul>
-      {todoList.map((todo) => {
-        <Todo key = {todo.id} content = {todo.text} />;
-      })}
+      {todos.map(todo => 
+        <Todo key = {todo.id} content = {todo.text} />
+      )}
     </ul>
   );
 };
