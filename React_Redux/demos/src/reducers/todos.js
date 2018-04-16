@@ -4,9 +4,18 @@ const todos = (state = [], action) => {
       ...state,
       {
         text: action.todoContent,
-        id: action.id
+        id: action.id,
+        complete: false
       }
     ];
+  }else if(action.type === 'COMPLETE_TODO'){
+    let newState = state.map((s) => {
+      if(s.id === action.id){
+        s.complete = true;
+      }
+      return s;
+    });
+    return newState;
   }
   return state;
 };

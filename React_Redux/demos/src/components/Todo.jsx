@@ -1,7 +1,8 @@
 import React from 'react';
 
-export default ({content}) => {
+export default ({content, onTodoClick, complete}) => {
   return (
-    <li>{content}</li>
+    <li onClick = {onTodoClick} style={{color: complete ? 'gray' : 'blue',
+    cursor: 'pointer'}}>{content}</li>
   );
 };

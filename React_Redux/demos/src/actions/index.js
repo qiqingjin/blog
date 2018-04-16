@@ -4,3 +4,13 @@ export const addTodoCreator = (todoContent) => ({
   todoContent,
   id: nextTodoId++
 });
+
+export const completeToDoCreator = (id) => ({
+  type: 'COMPLETE_TODO',
+  id
+});
+
+export const filtersCreator = (filter) => ({
+  type: 'FILTER',
+  filter
+});
