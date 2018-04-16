@@ -1,5 +1,6 @@
 const path = require('path');
 const root = __dirname;
+console.log('--------------', root);
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
