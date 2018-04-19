@@ -3,7 +3,7 @@ const root = __dirname;
 console.log('--------------', root);
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
+//const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
@@ -12,6 +12,7 @@ module.exports = {
     "react-hot-loader/patch",
     path.resolve(root, 'src/main.jsx')
   ],
+  mode:'development',
   // output
   output: {
     filename: '[name].bundle.js',
@@ -25,7 +26,7 @@ module.exports = {
   devtool: 'source-map',
   // loaders
   module: {
-    loaders: [
+    rules: [
         {
             test: /\.jsx?$/,
             loader: 'babel-loader',
@@ -50,9 +51,18 @@ module.exports = {
       'process.env.NODE_ENV': '"development"'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin("style.css"),
-    commonsPlugin
+    new ExtractTextPlugin("style.css")//,
+    //commonsPlugin
   ],
+  optimization: {
+    splitChunks: {
+       chunks: 'all',
+       name: 'common',
+    },
+    runtimeChunk: {
+      name: 'runtime',
+    }
+ },
   devServer: {
     hot: true,
     inline: true,
