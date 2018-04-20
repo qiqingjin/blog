@@ -4,7 +4,8 @@ console.log('--------------', root);
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+//const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   // entries
@@ -28,16 +29,21 @@ module.exports = {
   module: {
     rules: [
         {
-            test: /\.jsx?$/,
-            loader: 'babel-loader',
-            exclude: /node_modules/,
-            query: {
-              presets: ['react', 'es2015']
-            }
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/,
+          query: {
+            presets: ['react', 'es2015']
+          }
         },
         {
-            test: /\.(s)?css$/,
-            loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader')
+          test: /\.(s)?css$/,
+          loader: [
+            MiniCssExtractPlugin.loader,
+            "css-loader",
+            "postcss-loader",
+            "sass-loader"
+          ]
         },
         { test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader" }
     ]
@@ -51,7 +57,10 @@ module.exports = {
       'process.env.NODE_ENV': '"development"'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin("style.css")//,
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
+    })//,
     //commonsPlugin
   ],
   optimization: {
