@@ -63,11 +63,11 @@ router.get('/rest/todos', (ctx, next) => {
     complete: false
   }, {
     id: 2,
-    text: 'todo3',
+    text: 'todo_server_1',
     complete: true
   }, {
     id: 3,
-    text: 'todo_server',
+    text: 'todo_server_2',
     complete: true
   }];
 })
