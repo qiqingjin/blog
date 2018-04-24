@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
-const serve = require('koa-static-server');
+const serve = require('koa-static');
 const Router = require('koa-router');
 const axios = require('axios');
 
@@ -24,33 +24,35 @@ async function loadHTMLTemplate(path){
   }
 }
 
-app.use(serve({rootDir: path.resolve(__dirname, '../client/dist/')}));
+app.use(serve(path.resolve(__dirname, '../client/dist/')));
 
 router.get('/todos', async(ctx, next) => {
   const $ = await loadHTMLTemplate(path.resolve(__dirname, '../client/dist/index.html'));
 
   if(!$){
     ctx.body = null;
-    await next();
     return;
   }
 
-  const indexBundle = require('./dist/index.ssr');
-  const todosData = await axios.get('http://localhost:667/rest/todos');
+  const indexBundle = require('./dist/main.ssr');
+  const indexApp = indexBundle.__esModule ? indexBundle.default : indexBundle;
+  const {data: todosData} = await axios.get('http://localhost:667/rest/todos');
   const initData = {
     todos: todosData
   };
+
   const syncScript = `<script id="server-data">window._SERVER_DATA=${JSON.stringify(initData)}</script>`;
-  const instance = React.createElement(indexBundle.default, initData);
+  const store = indexApp.createStore(initData);
+  //console.log('=========store', store);
+  const instance = indexApp.createApp(store);
   const todosStr = ReactDOMServer.renderToString(instance);
 
   $('#app').html(todosStr);
   $('head').append(syncScript);
 
   ctx.body = $.html();
-  await next();
 });
-router.get('/rest/todos', async(ctx, next) => {
+router.get('/rest/todos', (ctx, next) => {
   ctx.body = [{
     id: 0,
     text: 'todo1',
@@ -59,9 +61,15 @@ router.get('/rest/todos', async(ctx, next) => {
     id: 1,
     text: 'todo2',
     complete: false
+  }, {
+    id: 2,
+    text: 'todo3',
+    complete: true
+  }, {
+    id: 3,
+    text: 'todo_server',
+    complete: true
   }];
-
-  await next();
 })
 
 app.use(router.routes())
