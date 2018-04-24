@@ -18,6 +18,6 @@ The app is universal(isomorphic), the components are available in `./client/src`
 7. visit `localhost:667/todos`
 
 # Blogs
-> Find blogs are in `./docs`
+> Find blogs in `./docs`
 
 1. React-SSR with new react 16 and webpack 4
