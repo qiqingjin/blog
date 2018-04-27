@@ -6,6 +6,9 @@ class FetchJSON extends Component {
   constructor(props){
     super(props);
   }
+  componentWillReceiveProps(props, nextProps){
+    //debugger;
+  }
   componentDidMount(){
     const { dispatch } = this.props;
   }

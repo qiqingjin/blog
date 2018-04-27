@@ -4,10 +4,13 @@ import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import App from 'components/App';
 
+const AsyncMode = React.unstable_AsyncMode;
 const createApp = (store) => (
   <AppContainer>
     <Provider store={store}>
-      <App />
+      <AsyncMode>
+        <App />
+      </AsyncMode>
     </Provider>
   </AppContainer>
 );
