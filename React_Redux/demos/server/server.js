@@ -43,9 +43,11 @@ router.get('/todos', async(ctx, next) => {
 
   const syncScript = `<script id="server-data">window._SERVER_DATA=${JSON.stringify(initData)}</script>`;
   const store = indexApp.createStore(initData);
-  //console.log('=========store', store);
+  console.log('=========store', store);
   const instance = indexApp.createApp(store);
+  console.log('=========instance', instance);
   const todosStr = ReactDOMServer.renderToString(instance);
+  console.log('=========todosStr', todosStr);
 
   $('#app').html(todosStr);
   $('head').append(syncScript);
