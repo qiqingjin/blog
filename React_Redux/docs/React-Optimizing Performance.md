@@ -36,7 +36,6 @@
 当pureComponent有shouldComponentUpdate函数时，会先调用该函数，根据它的返回结果决定是否进行render。如果pureComponent没有shouldComponentUpdate方法，则如上述，直接进行props和state的浅比较来决定是否进行render。
 
 ## 使用不可变数据
-(Do not create object for component props, modal -> this.child)
 ### Immutable
 Immutable数据，就是一旦创建就不可用再修改的数据，如果想“改变”，只能在原来值的基础上创建新值并作出相应修改。例如：
 ```js
